@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="icon" href="./favicon.ico" />
+    <script src="./js/vue.global.js"></script>
+    <script src="./js/js-yaml.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- 跑马灯 -->
+      <a
+        v-if="config.marquee"
+        class="marquee"
+        :style="{
+          backgroundColor: config.marquee.bgColor,
+          color: config.marquee.textColor
+        }"
+        :href="config.marquee.link"
+        target="_blank"
+      >
+        <span class="marquee-content"> {{ config.marquee.text }} </span>
+      </a>
+
+      <!-- 广告链接 -->
+      <ul class="app-link-list" v-if="config.links?.length">
+        <li v-for="(item, index) in config.links" :key="index">
+          <a
+            :href="item.link"
+            :style="{backgroundColor: item.bgColor, color: item.textColor || '#fff'}"
+            target="_blank"
+          >
+            {{ item.text }}
+          </a>
+        </li>
+      </ul>
+
+      <!-- 广告列表 -->
+      <ul class="app-list" v-if="config.adList?.length">
+        <li v-for="(ad, index) in config.adList" :key="index">
+          <a :href="ad.link" target="_blank" class="app-item">
+            <img :src="ad.imgUrl" />
+          </a>
+        </li>
+      </ul>
+
+      <!-- 广告APP -->
+      <ul class="app-app-list" v-if="config.adApp?.length">
+        <li v-for="(item, index) in config.adApp" :key="index">
+          <a :href="item.link" target="_blank" class="app-app-item">
+            <img :src="item.imgUrl" alt="" class="app-app-img" />
+            <div class="app-app-text">{{ item.text }}</div>
+          </a>
+        </li>
+      </ul>
+
+      <!-- 广告卡片 -->
+      <ul class="app-card-list" v-if="config.adCard?.length">
+        <li v-for="(item, index) in config.adCard" :key="index">
+          <a :href="item.link" target="_blank" class="app-card-item">
+            <img :src="item.imgUrl" />
+          </a>
+        </li>
+      </ul>
+
+      <!-- 广告表格 -->
+      <div class="app-grid-box" v-if="config.adTable?.length">
+        <ul class="app-grid">
+          <li class="app-grid-item" v-for="(item, index) in config.adTable" :key="index">
+            <a
+              :href="item.link"
+              target="_blank"
+              :style="{
+              color: item.textColor || '#fff'
+            }"
+            >
+              {{ item.text }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 悬浮广告 -->
+      <div v-if="config.adFloat?.length" class="app-float">
+        <ul class="float-list left">
+          <li v-for="(item, index) in floatLeft" :key="index" class="app-float-item">
+            <a :href="item.link" target="_blank">
+              <img :src="item.imgUrl" alt="图片" />
+            </a>
+          </li>
+        </ul>
+
+        <ul class="float-list right">
+          <li v-for="(item, index) in floatRight" :key="index" class="app-float-item">
+            <a :href="item.link" target="_blank">
+              <img :src="item.imgUrl" alt="图片" />
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="copyright">
+        copyright © {{ new Date().getFullYear() }} {{ config.siteName }} 版权所有
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const { createApp, ref, onMounted, watch, computed } = Vue;
+
+    const app = createApp({
+      setup() {
+        const config = ref({
+          siteName: "",
+          marquee: {
+            text: "",
+            link: "",
+            textColor: "",
+            bgColor: "",
+          },
+          links: [],
+          adList: [],
+          adTable: [],
+          adApp: [],
+          adCard: [],
+          adFloat: [],
+        });
+
+        const getConfig = async () => {
+          try {
+            const res = await fetch("/api/public/get");
+            const { data } = await res.json();
+            console.log(data);
+            config.value = {
+              ...config.value,
+              ...data,
+            };
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
+        const floatLeft = computed(() => {
+          return config.value.adFloat.filter((item) => item.position === "left");
+        });
+
+        const floatRight = computed(() => {
+          return config.value.adFloat.filter((item) => item.position === "right");
+        });
+
+        watch(
+          () => config.value,
+          () => {
+            document.title = config.value.siteName;
+          },
+          { deep: true, immediate: true }
+        );
+
+        onMounted(() => {
+          getConfig();
+        });
+
+        return {
+          config,
+          floatLeft,
+          floatRight,
+        };
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</html>

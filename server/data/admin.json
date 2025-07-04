@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": "bec9152d-4fba-4202-bd38-4e1997139135",
+      "username": "Luoni8888",
+      "password": "$2b$10$/l5Z6ZXJD6GIHzxO77tLcerHA24vwPOYJVfICQ5RwixPPCBS76LWK",
+      "role": "admin"
+    },
+    {
+      "id": "8179fe0a-e884-4a53-a3b7-1b7f2302c1eb",
+      "username": "test12332211",
+      "password": "$2b$10$yE5cP4xNXbkPyGvfe.J2DOYUOFxRIP75vm8IFrdgP7qwJvWGJU6W2",
+      "role": "editor"
+    }
+  ]
+}
