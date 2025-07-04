@@ -6,7 +6,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/admin/",
+  // 开发环境设置为/admin，生产环境设置为/
+  base: process.env.NODE_ENV === "development" ? "/admin/" : "/",
   plugins: [vue(), vueDevTools(), tailwindcss()],
   resolve: {
     alias: {
@@ -21,6 +22,11 @@ export default defineConfig({
         changeOrigin: true,
         // 路径前面添加/admin
         rewrite: (path) => path.replace(/^\/api/, "/admin/api"),
+      },
+      "/img": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/img/, "/admin/img"),
       },
       "/public": {
         target: "http://localhost:3000",
