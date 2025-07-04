@@ -32,7 +32,7 @@ const init = async () => {
 
   app.use("/admin", express.static(path.join(__dirname, "../admin")));
 
-  app.use("/public", express.static(path.join(__dirname, "../public")));
+  app.use("/site", express.static(path.join(__dirname, "../site")));
 
   // 中间件
   app.use(express.json());
