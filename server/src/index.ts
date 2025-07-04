@@ -21,7 +21,26 @@ const init = async () => {
 
   app.use((req, res, next) => {
     const now = new Date();
-    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "";
+    const getClientIp = (req: express.Request): string => {
+      // 1. 尝试从 X-Forwarded-For 获取
+      const xForwardedFor = req.headers["x-forwarded-for"];
+      if (typeof xForwardedFor === "string") {
+        return xForwardedFor.split(",")[0].trim();
+      }
+
+      // 2. 尝试从 X-Real-IP 获取
+      if (req.headers["x-real-ip"]) {
+        return Array.isArray(req.headers["x-real-ip"])
+          ? req.headers["x-real-ip"][0]
+          : req.headers["x-real-ip"];
+      }
+
+      // 3. 回退到 socket 地址
+      return req.socket.remoteAddress || "";
+    };
+
+    const ip = getClientIp(req);
+
     const logMsg = `[${now.toLocaleString("zh-CN", { hour12: false })}] ${req.method} ${
       req.originalUrl
     } | ${ip}`;
