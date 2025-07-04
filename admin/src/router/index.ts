@@ -4,9 +4,7 @@ import type { Role } from "@/types/user";
 import { ElMessage } from "element-plus";
 
 const router = createRouter({
-  history: createWebHistory(
-    import.meta.env.MODE === "production" ? "/admin/" : import.meta.env.BASE_URL,
-  ),
+  history: createWebHistory(import.meta.env.MODE === "production" ? "/" : import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",

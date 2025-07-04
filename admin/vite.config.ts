@@ -19,6 +19,8 @@ export default defineConfig({
       "/api": {
         target: "http://localhost:3000",
         changeOrigin: true,
+        // 路径前面添加/admin
+        rewrite: (path) => path.replace(/^\/api/, "/admin/api"),
       },
       "/public": {
         target: "http://localhost:3000",
