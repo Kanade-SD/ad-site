@@ -30,17 +30,16 @@ const init = async () => {
     next();
   });
 
-  app.use("/admin", express.static(path.join(__dirname, "../admin")));
-
-  app.use("/site", express.static(path.join(__dirname, "../site")));
-
   // 中间件
   app.use(express.json());
 
-  app.use("/api/public", siteApi);
-  app.use("/api/admin/user", userApi);
-  app.use("/api/admin/data", dataApi);
-  app.use("/api/admin/file", fileApi);
+  app.use("/site/api/", siteApi);
+  app.use("/site", express.static(path.join(__dirname, "../site")));
+
+  app.use("/admin", express.static(path.join(__dirname, "../admin")));
+  app.use("/admin/api/admin/user", userApi);
+  app.use("/admin/api/admin/data", dataApi);
+  app.use("/admin/api/admin/file", fileApi);
 
   app.get("/admin/{*splat}", (req, res) => {
     // 添加斜杠分隔符
