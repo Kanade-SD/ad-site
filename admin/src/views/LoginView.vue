@@ -13,8 +13,6 @@ const siteTitle = import.meta.env.VITE_SITE_TITLE;
 
 <style scoped lang="scss">
 .login-container {
-  background-image: url("@/assets/images/login_bg.jpg");
-  background-size: cover;
-  background-position: center;
+  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
 }
 </style>
