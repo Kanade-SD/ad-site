@@ -11,7 +11,7 @@ router.post("/imgUpload", upload.single("file"), (req, res) => {
     return;
   }
   // 构造图片访问链接
-  const imgUrl = `/${process.env.APP_UPLOAD_DIR}${req.file.filename}`;
+  const imgUrl = `${process.env.APP_IMG_DIR}/${req.file.filename}`;
   res.json(success({ imgUrl }, "上传成功"));
 });
 

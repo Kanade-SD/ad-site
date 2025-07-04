@@ -34,11 +34,13 @@ const init = async () => {
   app.use(express.json());
 
   app.use("/site/api/", siteApi);
+  app.use("/site/img", express.static(path.join(__dirname, "../assets")));
   app.use("/site", express.static(path.join(__dirname, "../site")));
 
   app.use("/admin/api/user", userApi);
   app.use("/admin/api/data", dataApi);
   app.use("/admin/api/file", fileApi);
+  app.use("/admin/img", express.static(path.join(__dirname, "../assets")));
   app.use("/admin", express.static(path.join(__dirname, "../admin")));
   app.get("/admin/{*splat}", (req, res) => {
     res.sendFile(path.join(__dirname, "../admin/index.html"));
