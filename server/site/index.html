@@ -131,7 +131,7 @@
 
         const getConfig = async () => {
           try {
-            const res = await fetch("/site/api/get");
+            const res = await fetch("/api/get");
             const { data } = await res.json();
             console.log(data);
             config.value = {
