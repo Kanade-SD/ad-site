@@ -145,14 +145,12 @@ const onAdd = async () => {
   try {
     loading.value = true;
     // 循环4次
-    for (let i = 0; i < 4; i++) {
-      await apiAddAdFloat({
-        id: formData.value.id,
-        position: formData.value.position,
-        link: formData.value.link,
-        imgUrl: formData.value.imgUrl,
-      });
-    }
+    await apiAddAdFloat({
+      id: formData.value.id,
+      position: formData.value.position,
+      link: formData.value.link,
+      imgUrl: formData.value.imgUrl,
+    });
 
     ElMessage.success("保存成功");
     emit("onSuccess");
