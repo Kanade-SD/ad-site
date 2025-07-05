@@ -4,7 +4,7 @@
     "text": "广告位招租",
     "link": "https://www.baidu.com",
     "textColor": "#ffffff",
-    "bgColor": "#ff00ff"
+    "bgColor": "#ff4500"
   },
   "links": [
     {
@@ -102,8 +102,8 @@
     {
       "text": "广告招商",
       "link": "https://www.baidu.com",
-      "textColor": "",
-      "bgColor": "",
+      "textColor": "#ff4500",
+      "bgColor": "#f5f5f5",
       "id": "9ffd90c5-bf8a-48ca-8040-3a6bb724071c"
     },
     {

@@ -27,10 +27,16 @@
                   <el-input v-model="siteData.marquee.link"></el-input>
                 </el-form-item>
                 <el-form-item label="跑马灯文字颜色" prop="marquee.textColor">
-                  <el-input v-model="siteData.marquee.textColor"></el-input>
+                  <el-color-picker
+                    v-model="siteData.marquee.textColor"
+                    :predefine="predefineColors"
+                  ></el-color-picker>
                 </el-form-item>
                 <el-form-item label="跑马灯背景颜色" prop="marquee.bgColor">
-                  <el-input v-model="siteData.marquee.bgColor"></el-input>
+                  <el-color-picker
+                    v-model="siteData.marquee.bgColor"
+                    :predefine="predefineColors"
+                  ></el-color-picker>
                 </el-form-item>
               </div>
             </div>
@@ -59,6 +65,7 @@ import AdFloatContent from "./AdFloatContent.vue";
 import { apiGetAllData, apiUpdateData } from "@/api/api";
 import { ElMessage } from "element-plus";
 import type { WebsiteData } from "@/types/data";
+import { predefineColors } from "@/types/color";
 
 const loading = ref(false);
 

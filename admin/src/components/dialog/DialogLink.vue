@@ -8,10 +8,13 @@
         <el-input v-model="formData.link"></el-input>
       </el-form-item>
       <el-form-item label="链接文字颜色" prop="textColor">
-        <el-input v-model="formData.textColor"></el-input>
+        <el-color-picker
+          v-model="formData.textColor"
+          :predefine="predefineColors"
+        ></el-color-picker>
       </el-form-item>
       <el-form-item label="链接背景颜色" prop="bgColor">
-        <el-input v-model="formData.bgColor"></el-input>
+        <el-color-picker v-model="formData.bgColor" :predefine="predefineColors"></el-color-picker>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -28,6 +31,7 @@ import { apiAddLink, apiUpdateLink } from "@/api/api";
 import type { LinkType } from "@/types/data";
 import { ElMessage, type FormInstance } from "element-plus";
 import { ref } from "vue";
+import { predefineColors } from "@/types/color";
 
 const visible = defineModel<boolean>("visible");
 

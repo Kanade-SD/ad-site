@@ -7,8 +7,22 @@
     <el-table :data="props.siteData.links" stripe border>
       <el-table-column label="链接文字" prop="text"></el-table-column>
       <el-table-column label="链接地址" prop="link"></el-table-column>
-      <el-table-column label="文字颜色" prop="textColor"></el-table-column>
-      <el-table-column label="背景颜色" prop="bgColor"></el-table-column>
+      <el-table-column label="文字颜色" prop="textColor">
+        <template #default="scope">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-md" :style="{ backgroundColor: scope.row.textColor }"></div>
+            <div>{{ scope.row.textColor }}</div>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="背景颜色" prop="bgColor">
+        <template #default="scope">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-md" :style="{ backgroundColor: scope.row.bgColor }"></div>
+            <div>{{ scope.row.bgColor }}</div>
+          </div>
+        </template>
+      </el-table-column>
 
       <el-table-column label="操作" width="160">
         <template #default="scope">
